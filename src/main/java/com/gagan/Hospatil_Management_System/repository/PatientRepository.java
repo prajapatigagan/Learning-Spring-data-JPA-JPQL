@@ -1,5 +1,6 @@
 package com.gagan.Hospatil_Management_System.repository;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.gagan.Hospatil_Management_System.entity.Patient;
 import com.gagan.Hospatil_Management_System.entity.type.BloodGroupType;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -18,4 +19,12 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
 //    List<Patient> findByNameContainingOredrByIdDesc(String query);
     @Query("SELECT p FROM Patient p WHERE p.blood_group = ?1")
     List<Patient> findByBloodGroup(BloodGroupType blood_group);
+    @Query("SELECT p FROM Patient p WHERE p.birthdate   >:birthdate")
+    List<Patient> findByBornAfterDate(@Param ("birthdate") LocalDate birthdate);
+
+    @Query("SELECT p.blood_group, COUNT(p) FROM Patient p GROUP BY p.blood_group")
+    List<Object[]> countEachBloodGroupType();
+
+    @Query(value="select * from patient" ,nativeQuery=true)
+    List<Patient> findAllPatients();
 }

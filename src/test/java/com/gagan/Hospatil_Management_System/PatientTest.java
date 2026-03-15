@@ -4,6 +4,7 @@ import com.gagan.Hospatil_Management_System.Services.PatientServices;
 import com.gagan.Hospatil_Management_System.entity.Patient;
 import com.gagan.Hospatil_Management_System.entity.type.BloodGroupType;
 import com.gagan.Hospatil_Management_System.repository.PatientRepository;
+import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -39,10 +40,19 @@ public class PatientTest {
 //        List<Patient> patientList = patientRepository
 //                .findByBirthdateOrEmail(LocalDate.of(1998,8,21),"anita@gmail.com");
 
-        List<Patient> patientList=patientRepository.findByBloodGroup(BloodGroupType.A_POSITIVE);
-        System.out.println(patientList.size());
+//        List<Patient> patientList=patientRepository.findByBloodGroup(BloodGroupType.A_POSITIVE);
+
+//        List<Patient> patientList=patientRepository.findByBornAfterDate(LocalDate.of(1985,8,28));
+//        System.out.println(patientList.size());
+
+        List<Patient> patientList=patientRepository.findAllPatients();
         for(Patient patient : patientList){
             System.out.println(patient);
+        }
+
+        List<Object[]> bloodGroupList = patientRepository.countEachBloodGroupType();
+        for(Object[] object : bloodGroupList){
+            System.out.println(object[0] + " " + object[1]);
         }
     }
 }
