@@ -9,7 +9,10 @@ import org.apache.logging.log4j.spi.ObjectThreadContextMap;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
+import java.awt.print.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -60,10 +63,18 @@ public class PatientTest {
 //        for(BloodGroupCountResponceEntity BloodGroupCountResponce: bloodGroupList){
 //            System.out.println(BloodGroupCountResponce);
 //        }
-        List<BloodGroupCountResponceEntity> bloodGroupList = patientRepository.countEachBloodGroupType();
+//        List<BloodGroupCountResponceEntity> bloodGroupList = patientRepository.countEachBloodGroupType();
+//
+//        for (BloodGroupCountResponceEntity bloodGroupResponse : bloodGroupList) {
+//            System.out.println(bloodGroupResponse);
+//        }
 
-        for (BloodGroupCountResponceEntity bloodGroupResponse : bloodGroupList) {
-            System.out.println(bloodGroupResponse);
+        //paging.....
+        Page<Patient> patientPage = patientRepository.findAllPatients(PageRequest.of(4,6));
+        List<Patient> patientList = patientPage.getContent();
+        for (Patient patient : patientList) {
+            System.out.println(patient);
         }
+
     }
 }

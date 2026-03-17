@@ -4,11 +4,13 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.gagan.Hospatil_Management_System.dto.BloodGroupCountResponceEntity;
 import com.gagan.Hospatil_Management_System.entity.Patient;
 import com.gagan.Hospatil_Management_System.entity.type.BloodGroupType;
+import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import org.springframework.data.domain.Pageable;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -30,6 +32,10 @@ public interface PatientRepository extends JpaRepository<Patient,Long> {
             "FROM Patient p GROUP BY p.blood_group")
     List<BloodGroupCountResponceEntity> countEachBloodGroupType();
 
+//    @Query(value="select * from patient" ,nativeQuery=true)
+//    List<Patient> findAllPatients();
+
+    //paging.....
     @Query(value="select * from patient" ,nativeQuery=true)
-    List<Patient> findAllPatients();
+    Page<Patient> findAllPatients(Pageable pageable);
 }
