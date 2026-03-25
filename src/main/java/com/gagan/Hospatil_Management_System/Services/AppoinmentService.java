@@ -6,6 +6,7 @@ import com.gagan.Hospatil_Management_System.entity.Patient;
 import com.gagan.Hospatil_Management_System.repository.AppoinmentRepository;
 import com.gagan.Hospatil_Management_System.repository.DoctorRepository;
 import com.gagan.Hospatil_Management_System.repository.PatientRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,18 +17,18 @@ public class AppoinmentService {
     private final DoctorRepository doctorRepository;
     private final PatientRepository patientRepository;
 
-    public Appoinment createNewAppointment(Appoinment appoinment,Long doctorId,Long patientId) {
-        Doctor doctor=doctorRepository.findById(doctorId).orElseThrow();
+    @Transactional
+    public Appoinment createNewAppoinment(Appoinment appoinment,Long doctorId,Long patientId){
+        Doctor doctor = doctorRepository.findById(doctorId)
+                .orElseThrow(() -> new RuntimeException("Doctor not found with id: " + doctorId));
         Patient patient=patientRepository.findById(patientId).orElseThrow();
 
-        if(appoinment.getId()!=null)throw new IllegalArgumentException("Appoinment should not have");
-
+        if (appoinment.getId()!=null)throw new IllegalArgumentException("Appointment should not have id");
         appoinment.setPatient(patient);
         appoinment.setDoctor(doctor);
 
-        patient.getAppoinments().add(appoinment);//to maintain consistency
+        patient.getAppoinments().add(appoinment);// to maintain consistency
 
-        appoinmentRepository.save(appoinment);
-        return appoinment;
+        return appoinmentRepository.save(appoinment);
     }
 }

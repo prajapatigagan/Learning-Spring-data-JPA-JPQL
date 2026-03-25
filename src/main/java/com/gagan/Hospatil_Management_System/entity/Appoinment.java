@@ -11,13 +11,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
+@Builder
 public class Appoinment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime appoinmentTime;
+    private LocalDateTime appointmentTime;
 
     @Column(length = 500)
     private String reason;
@@ -29,4 +30,5 @@ public class Appoinment {
     @ManyToOne
     @JoinColumn(nullable = false)
     private Doctor doctor;
+
 }

@@ -2,6 +2,7 @@ package com.gagan.Hospatil_Management_System.entity;
 
 import com.gagan.Hospatil_Management_System.entity.type.BloodGroupType;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
@@ -53,9 +54,10 @@ public class Patient {
     @JoinColumn(name = "patient_insurance_id") //owning side
     private Insurance insurance;
 
-    @OneToMany(mappedBy = "patient")
+    @OneToMany(mappedBy = "patient",cascade = {CascadeType.REMOVE},orphanRemoval = true)
     @ToString.Exclude
     private List<Appoinment> appoinments =new ArrayList<>();
+
 //    @OneToMany(mappedBy = "patient", cascade = {CascadeType.REMOVE}, orphanRemoval = true, fetch = FetchType.EAGER)
 //    private List<Appointment> appointments = new ArrayList<>();
 }
