@@ -31,4 +31,16 @@ public class AppoinmentService {
 
         return appoinmentRepository.save(appoinment);
     }
+
+    @Transactional
+    public Appoinment reAssignAppoinmentTOAnotherDoctor(Long appoinmentId,Long doctorId){
+        Appoinment appoinment=appoinmentRepository.findById(appoinmentId).orElseThrow();
+        Doctor doctor=doctorRepository.findById(doctorId).orElseThrow();
+
+        appoinment.setDoctor(doctor);//this will automatically call the update,because it is dirty
+
+        doctor.getAppoinments().add(appoinment);//just for bidirectional consistency
+
+        return appoinment;
+    }
 }

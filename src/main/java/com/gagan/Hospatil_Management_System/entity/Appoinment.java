@@ -18,16 +18,18 @@ public class Appoinment {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime appointmentTime;
+    private LocalDateTime appoinmentTime;
 
     @Column(length = 500)
     private String reason;
 
     @ManyToOne
+    @ToString.Exclude
     @JoinColumn(name = "patient_id",nullable = false) //patient is required and not nullable
     private Patient patient;
 
-    @ManyToOne
+    @ManyToOne(fetch =FetchType.LAZY)
+    @ToString.Exclude
     @JoinColumn(nullable = false)
     private Doctor doctor;
 

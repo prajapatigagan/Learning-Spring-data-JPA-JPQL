@@ -27,15 +27,16 @@ public class PatientTest {
 
     @Test
     public void testPatientRepository(){
-        List<Patient> patientList=patientRepository.findAll();
+//        List<Patient> patientList=patientRepository.findAll();
+        List<Patient> patientList=patientRepository.findAllPatientWithAppointment();
         System.out.println(patientList);
+//
+//        Patient p1=new Patient();
+//        p1.setName("Ravi");
+//        p1.setEmail("ravi@gmail.com");
+//        p1.setGender("Male");
 
-        Patient p1=new Patient();
-        p1.setName("Ravi");
-        p1.setEmail("ravi@gmail.com");
-        p1.setGender("Male");
-
-        patientRepository.save(p1);
+//        patientRepository.save(p1);
     }
     @Test
     public void testTransactionMethods(){

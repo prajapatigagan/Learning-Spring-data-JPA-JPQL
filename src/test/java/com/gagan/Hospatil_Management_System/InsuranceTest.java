@@ -39,16 +39,21 @@ public class InsuranceTest {
 
         Patient patient=insuranceService.assignInsuranceToPatient(insurance,1l);
         System.out.println(patient);
+
+        var newPatient=insuranceService.disaccociateInsuranceFromPatient(patient.getId());
+        System.out.println(newPatient);
     }
 
     @Test
     public void testCreateAppoinment(){
         Appoinment appoinment=Appoinment.builder()
-                .appointmentTime(LocalDateTime.of(2024,12,23,12,45,05))
+                .appoinmentTime(LocalDateTime.of(2024,12,23,12,45,05))
                 .reason("cancer")
                 .build();
         var newAppoinment=appoinmentService.createNewAppoinment(appoinment,1L,2L);
         System.out.println(newAppoinment);
-    }
 
+        var updatedAppoinment=appoinmentService.reAssignAppoinmentTOAnotherDoctor(newAppoinment.getId(),3L);
+        System.out.println(updatedAppoinment);
+    }
 }

@@ -17,11 +17,20 @@ public class InsuranceService {
 
     @Transactional
     public Patient assignInsuranceToPatient(Insurance insurance, Long patientId){
-        Patient patient=patientRepository.findById(patientId).orElseThrow(()-> new EntityNotFoundException("Patient not found with id :"+patientId));
+        Patient patient=patientRepository.findById(patientId)
+                .orElseThrow(()-> new EntityNotFoundException("Patient not found with id :"+patientId));
 
         patient.setInsurance(insurance);
         insurance.setPatient(patient);//bidirectional consistency maintainence
 
+        return patient;
+    }
+
+    public Patient disaccociateInsuranceFromPatient(Long patientId){
+        Patient patient=patientRepository.findById(patientId)
+                .orElseThrow(()-> new EntityNotFoundException("Patient not found with id :"+patientId));
+
+        patient.setInsurance(null);
         return patient;
     }
 }
