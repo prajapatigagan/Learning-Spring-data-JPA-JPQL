@@ -8,3 +8,6 @@ Used Database - PostgreSql
 
 
 Tables - Patient,Appointment,Department,Doctor,Insurance.
+
+
+Used for Spring Security
